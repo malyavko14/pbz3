@@ -1,0 +1,14 @@
+MATCH (notebook: class {name:"ноутбук"})<-[:is]-(n)-[:nrelOperatingSystem ]->(macOs: node {name: "MacOS"})-[:is]->(operatingSystem: class {name:"операционная система"}) RETURN n, notebook, macOs, operatingSystem 
+MATCH (notebook: class {name:"ноутбук"})<-[:is]-(n)-[:is]->(m)-[:is]->(company: class {name:"компания"}), (m)-[:location]->(china: node {name: "Китай"})-[:is]->(ccountry) RETURN n, m, notebook, china, ccountry 
+MATCH (ccountry: class {name: "страна"})<-[:is]-(japan: node {name: "Япония"})<-[:location]-(n)-[:is]->(company: class {name:"компания"}) RETURN n,japan, ccountry, company
+
+Патерны автомобилей 
+MATCH (n)-[:is]->(car: class {name:"автомобиль"})RETURN n, car
+MATCH (company: class {name:"компания"})<-[:is]-(m)<-[:is]-(n)-[:is]->(car: class {name:"автомобиль"}), (m)-[:location {name: "расположение"}]->(germany: node {name: "Германия"})-[:is {name: "это"}]->(ccountry: class {name: "страна"}) RETURN n,m,car,company,germany, ccountry
+MATCH (carClass: class {name:"класс автомобиля"})<-[:is]-(supercar: node{name:"Суперкар"})<-[:nrelCarClass {name: "класс автомобиля"}]-(n)-[:is]->(car: class {name:"автомобиль"}),(n)-[:nrelBodyType {name: "тип кузова"}]->(coupe: node{name:"купе"})-[:is]->(bodyType: class {name:"тип кузова"}) RETURN carClass, supercar,car, coupe, bodyType,n
+MATCH (company: class {name:"компания"})<-[:is]-(audi: class {name:"audi"})<-[:is]-(n)-[:is]->(car: class {name:"автомобиль"}),(n)-[:nrelBodyType {name: "тип кузова"}]->(coupe: node{name:"купе"})-[:is]->(bodyType: class {name:"тип кузова"}) RETURN n, car, company,audi,coupe,bodyType
+MATCH (carClass: class {name:"класс автомобиля"})<-[:is]-(businessClass: node{name:"Бизнес класс"})<-[:nrelCarClass {name: "класс автомобиля"}]-(n)-[:is]->(car: class {name:"автомобиль"}),(n)-[:nrelBodyType {name: "тип кузова"}]->(sedan: node{name:"седан"})-[:is]->(bodyType: class {name:"тип кузова"}) RETURN carClass, businessClass,car, sedan, bodyType,n
+MATCH (ccountry: class {name: "страна"})<-[:is {name: "это"}]-(japan: node {name: "Япония"})<-[:location {name: "расположение"}]-(m)-[:is {name: "это"}]->(company: class {name:"компания"}),(m)<-[:is {name: "это"}]-(n)-[:is {name: "это"}]->(car: class {name:"автомобиль"}),(n)-[:nrelCarClass {name: "класс автомобиля"}]->(supercar: node{name:"Суперкар"})-[:is {name: "это"}]->(carClass: class {name:"класс автомобиля"}) RETURN ccountry, japan, m,n,company,car,supercar,carClass
+MATCH (ccountry: class {name: "страна"})<-[:is {name: "это"}]-(french: node {name: "Франция"})<-[:location {name: "расположение"}]-(m)-[:is {name: "это"}]->(company: class {name:"компания"}),(m)<-[:is {name: "это"}]-(n)-[:is {name: "это"}]->(car: class {name:"автомобиль"}),(n)-[:nrelBodyType {name: "тип кузова"}]->(sedan: node{name:"седан"})-[:is]->(bodyType: class {name:"тип кузова"}) RETURN ccountry, french, m,n,company,car,sedan,bodyType
+
+
